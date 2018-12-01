@@ -1,0 +1,4 @@
+function limit = move_robot(distance)
+ROTATION_DISTANCE = 17; %distance in cm covered by one full motor rotation
+limit = Around(distance * 360 / ROTATION_DISTANCE);
+end

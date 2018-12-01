@@ -1,0 +1,5 @@
+function lim = rotate_robot(ang)
+% 4*174 = one full rotation
+    ROTATION_DISTANCE = 17;
+    lim = ang/360*4*174;
+end

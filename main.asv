@@ -1,0 +1,42 @@
+COM_CloseNXT all 
+h =COM_OpenNXT();
+COM_SetDefaultNXT(h); 
+NXT_PlayTone(440, 500)
+MOTOR_POWER = -30;
+% 360 deg = 17 cm movement
+
+DISTANCE_TO_MOVE = 140;
+ANG_TO_ROTATE = 93;
+
+%lim = move_robot(DISTANCE_TO_MOVE);
+lim = rotate_robot(ANG_TO_ROTATE);
+
+motorA = NXTMotor('A') ;
+motorB = NXTMotor('B') ;
+
+%{
+motorA.Power = sign(DISTANCE_TO_MOVE)*MOTOR_POWER;
+motorA.TachoLimit =  lim;
+motorA.SendToNXT()
+
+motorB.Power = sign(DISTANCE_TO_MOVE)*MOTOR_POWER;
+motorB.TachoLimit = lim;
+motorB.SendToNXT()
+%}
+%{
+motorA.WaitFor(5)
+motorB.WaitFor(5)
+
+motorA.Power = -20;
+motorA.TachoLimit = 180 ;
+motorA.SendToNXT()
+
+motorB.Power = -20;
+motorB.TachoLimit = 180 ;
+motorB.SendToNXT()
+%}
+COM_CloseNXT(h)
+
+
+
+
