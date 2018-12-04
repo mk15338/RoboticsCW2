@@ -1,40 +1,40 @@
+%% Initialize the NXT robot
 COM_CloseNXT all 
 h =COM_OpenNXT();
 COM_SetDefaultNXT(h); 
 NXT_PlayTone(440, 500)
-MOTOR_POWER = -30;
-% 360 deg = 17 cm movement
-
-DISTANCE_TO_MOVE = 140;
-ANG_TO_ROTATE = 93;
-
-%lim = move_robot(DISTANCE_TO_MOVE);
-lim = rotate_robot(ANG_TO_ROTATE);
-
+OpenUltrasonic(SENSOR_4);
 motorA = NXTMotor('A') ;
 motorB = NXTMotor('B') ;
 
-%{
-motorA.Power = sign(DISTANCE_TO_MOVE)*MOTOR_POWER;
-motorA.TachoLimit =  lim;
-motorA.SendToNXT()
+%% Global parameters
+MOTOR_POWER = -30;
+DISTANCE_TO_MOVE = 20;
+ANG_TO_ROTATE = 120;
+NUMBER_OF_SCANS = ;
+MOTOR_C_POWER = 20;
 
-motorB.Power = sign(DISTANCE_TO_MOVE)*MOTOR_POWER;
-motorB.TachoLimit = lim;
-motorB.SendToNXT()
-%}
-%{
-motorA.WaitFor(5)
-motorB.WaitFor(5)
+%% MOVE ROBOT 
+%move_robot(DISTANCE_TO_MOVE);
 
-motorA.Power = -20;
-motorA.TachoLimit = 180 ;
-motorA.SendToNXT()
 
-motorB.Power = -20;
-motorB.TachoLimit = 180 ;
-motorB.SendToNXT()
-%}
+%% ROTATE ROBOT
+%rotate_robot(ANG_TO_ROTATE);
+
+
+%% TAKE SENSOR READINGS
+motorC = NXTMotor('C');
+motorC.TachoLimit =  round((360 / NUMBER_OF_SCANS));
+motorC.Power = MOTOR_C_POWER;
+for i = 1 : NUMBER_OF_SCANS
+    dists(i) = GetUltrasonic(SENSOR_4)
+    motorC.SendToNXT();
+    motorC.WaitFor();
+end
+motorC.Power = -MOTOR_C_POWER;
+motorC.TachoLimit =  360;
+motorC.SendToNXT()
+
 COM_CloseNXT(h)
 
 

@@ -1,5 +1,4 @@
 function lim = rotate_robot(ang)
-
     % 4*174 = one full rotation
     COM_CloseNXT all 
     h =COM_OpenNXT();
@@ -10,7 +9,7 @@ function lim = rotate_robot(ang)
 
 
     ROTATION_DISTANCE = 4*174;
-    lim = abs(round(ang*ROTATION_DISTANCE/(2*pi)));
+    lim = round(ang*ROTATION_DISTANCE/360);
     
     lim_rot=lim;
     
@@ -20,10 +19,5 @@ function lim = rotate_robot(ang)
 
     motorB.Power = -sign(ang)*MOTOR_POWER;
     motorB.TachoLimit = lim_rot;
-    motorB.SendToNXT();
-    
-    motorA.WaitFor();
-    motorB.WaitFor();
-    
-    %COM_CloseNXT(h)
+    motorB.SendToNXT()
 end

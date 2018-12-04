@@ -1,6 +1,3 @@
-clear;
-clc;
-
 %% Initialize the NXT robot
 COM_CloseNXT all 
 h =COM_OpenNXT();
@@ -14,7 +11,7 @@ motorB = NXTMotor('B') ;
 MOTOR_POWER = -30;
 DISTANCE_TO_MOVE = 20;
 ANG_TO_ROTATE = 120;
-NUMBER_OF_SCANS = 4;
+NUMBER_OF_SCANS = 100;
 MOTOR_C_POWER = 20;
 
 %% MOVE ROBOT 
@@ -22,25 +19,24 @@ MOTOR_C_POWER = 20;
 
 
 %% ROTATE ROBOT
-%rotate_robot(ANG_TO_ROTATE);
+rotate_robot(ANG_TO_ROTATE);
 
 
 %% TAKE SENSOR READINGS
-robot_scan(4)
 % motorC = NXTMotor('C');
-% motorC.TachoLimit =  round((360 / NUMBER_OF_SCANS));
-% motorC.Power = MOTOR_C_POWER;
-% pause(0.3)
+% motorC.TachoLimit =  (360 / NUMBER_OF_SCANS);
+% % motorC.Power = MOTOR_C_POWER;
+% % motorC.TachoLimit =  (360 / NUMBER_OF_SCANS);
 % for i = 1 : NUMBER_OF_SCANS
 %     dists(i) = GetUltrasonic(SENSOR_4)
-%     motorC.SendToNXT();
-%     motorC.WaitFor();
+% %     motorC.SendToNXT();
+% %     motorC.WaitFor();
 % end
 % motorC.Power = -MOTOR_C_POWER;
 % motorC.TachoLimit =  360;
 % motorC.SendToNXT()
 
-COM_CloseNXT(h)
+%COM_CloseNXT(h)
 
 
 

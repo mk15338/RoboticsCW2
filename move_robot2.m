@@ -1,7 +1,7 @@
-function limit = move_robot(distance)
-% COM_CloseNXT all 
-% h =COM_OpenNXT();
-% COM_SetDefaultNXT(h); 
+function limit = move_robot2(distance)
+COM_CloseNXT all 
+h =COM_OpenNXT();
+COM_SetDefaultNXT(h); 
 MOTOR_POWER = -30;
 motorA = NXTMotor('A') ;
 motorB = NXTMotor('B') ;
@@ -17,9 +17,5 @@ motorA.SendToNXT()
 motorB.Power = sign(distance)*MOTOR_POWER;
 motorB.TachoLimit = lim_move;
 motorB.SendToNXT()
-
-motorA.WaitFor();
-motorB.WaitFor();
-
-% COM_CloseNXT(h)
+COM_CloseNXT(h)
 end
